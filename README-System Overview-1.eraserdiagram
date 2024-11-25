@@ -1,5 +1,9 @@
 flowchart-diagram
 
+title System Overview
+direction down
+colorMode bold
+styleMode plain
 // Title of the flowchart
 title System Overview
 
