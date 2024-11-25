@@ -1,0 +1,19 @@
+flowchart-diagram
+
+// Title of the flowchart
+title System Overview
+
+// Define the main components and their connections
+Host PC [label: Host PC, icon: monitor] > STM32F411RE Controller [label: STM32F411RE Controller, icon: cpu]: USB/Serial connection
+
+STM32F411RE Controller > STM32F411RE Platform [label: STM32F411RE Platform, icon: microchip, color: blue]: UART1
+STM32F411RE Controller > STM32F411RE Platform: UART2
+
+STM32F411RE Platform > Ultrasonic Sensor [label: Ultrasonic Sensor, icon: activity, color: green]: Sensor data
+STM32F411RE Platform > IR Sensor [label: IR Sensor, icon: activity, color: green]: Sensor data
+
+// Dotted lines for power connections
+STM32F411RE Controller > STM32F411RE Platform [style: dotted]: Power connection
+STM32F411RE Platform > Ultrasonic Sensor [style: dotted]: Power connection
+STM32F411RE Platform > IR Sensor [style: dotted]: Power connection
+
