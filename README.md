@@ -43,7 +43,15 @@ Real-time marine debris detection system using STM32F411RE and FreeRTOS. Impleme
 
 
 # System Overview
-![image.png](/.eraser/PC4XAUotFmEPGhxQ497y___mOJMEuxMFFO7MZ2mGvGVJzb7uOn2___zMsryLpSMHmAAfhpyDJr-.png "image.png")
+
+
+
+
+![image.png](/.eraser/PC4XAUotFmEPGhxQ497y___mOJMEuxMFFO7MZ2mGvGVJzb7uOn2___f6QQj1DjREvnqBhPkT_qT.png "image.png")
+
+
+
+
 
 
 
@@ -61,7 +69,8 @@ Real-time marine debris detection system using STM32F411RE and FreeRTOS. Impleme
 <!-- eraser-additional-content -->
 ## Diagrams
 <!-- eraser-additional-files -->
-<a href="/README-System Overview-1.eraserdiagram" data-element-id="dmEV7m3HXGZm0QbaWk4VE"><img src="/.eraser/PC4XAUotFmEPGhxQ497y___mOJMEuxMFFO7MZ2mGvGVJzb7uOn2___---diagram----5bc39187af56c70b2411e513e61a0b9d-System-Overview.png" alt="" data-element-id="dmEV7m3HXGZm0QbaWk4VE" /></a>
+<a href="/README-System Overview-1.eraserdiagram" data-element-id="dmEV7m3HXGZm0QbaWk4VE"><img src="/.eraser/PC4XAUotFmEPGhxQ497y___mOJMEuxMFFO7MZ2mGvGVJzb7uOn2___---diagram----09b81536baa3de6381a9fd5c8c4e4478-System-Overview.png" alt="" data-element-id="dmEV7m3HXGZm0QbaWk4VE" /></a>
+<a href="/README-Software Architecture for Embedded System-2.eraserdiagram" data-element-id="d7U6oxiKEVyGogTtsWJ9a"><img src="/.eraser/PC4XAUotFmEPGhxQ497y___mOJMEuxMFFO7MZ2mGvGVJzb7uOn2___---diagram----3769ba2ef5108b3f41b964cdea8e1947-Software-Architecture-for-Embedded-System.png" alt="" data-element-id="d7U6oxiKEVyGogTtsWJ9a" /></a>
 <!-- end-eraser-additional-files -->
 <!-- end-eraser-additional-content -->
 <!--- Eraser file: https://app.eraser.io/workspace/PC4XAUotFmEPGhxQ497y --->
