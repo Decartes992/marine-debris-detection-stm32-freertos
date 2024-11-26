@@ -1,0 +1,22 @@
+flowchart-diagram
+
+title System Overview
+direction right
+colorMode outline
+styleMode plain
+typeface mono
+
+// Define the main components and their connections
+Host PC [label: Host PC, icon: monitor, annotation: "Commands and receives processed data over USART2"] <> Controller [label: STM32F411RE Sensor Controller, color: blue,icon: cpu, annotation: "Processes PC commands, controls state machine, and manages queues"]: USART2
+
+// Connections between STM32 Controller and Platform
+Controller <> Platform [label: STM32F411RE Sensor Platform, icon: microchip, color: blue, annotation: "Acquires and transmits sensor data using USART1"]: USART1
+
+// Sensors connected to STM32F411RE Platform
+Platform <> Ultrasonic Sensor [label: Ultrasonic Sensor, icon: activity, color: green, annotation: "Measures distances"]: Data
+Platform > IR Sensor [label: IR Sensor, icon: activity, color: green, annotation: "Detects organic vs. inorganic material"]: Power Connection
+
+// Dotted lines for power connections
+Controller > Platform [style: dotted]: Power Connection
+Platform > Ultrasonic Sensor [style: dotted]: Power Connection
+Platform <> IR Sensor [style: dotted]: Data

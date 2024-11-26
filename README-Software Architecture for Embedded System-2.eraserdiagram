@@ -1,0 +1,53 @@
+entity-relationship-diagram
+
+title Software Architecture for Embedded System
+colorMode outline
+styleMode plain
+typeface mono
+
+style 
+// Define tables with detailed labels
+core_components [icon: layers, color: lightblue] {
+  id string pk
+  task1 string // Sensor RX Task
+  task2 string // Host PC RX Task
+  task3 string // Controller Task
+  scheduler string // FreeRTOS Scheduler
+  priority_levels string // Task Priorities (High > Medium > Low)
+}
+
+queue_management [icon: database, color: orange] {
+  id string pk
+  sensor_data_queue string // Sensor Data Buffer
+  host_pc_command_queue string // Host PC Command Buffer
+  mutex_blocks string // Mutex for Resource Protection
+}
+
+hardware_interface [icon: cpu, color: green] {
+  id string pk
+  uart1_driver string // Driver for UART1 (Sensor)
+  uart2_driver string // Driver for UART2 (PC)
+  interrupt_handlers string // IRQ Handlers
+  dma_controllers string // DMA for Data Transfers
+}
+
+application_layer [icon: code, color: purple] {
+  id string pk
+  state_machine string // System States Logic
+  message_parser string // NMEA Message Parser
+  sensor_control_logic string // Logic for Sensor Commands
+}
+
+// Define relationships with corrected syntax
+hardware_interface.uart1_driver > core_components.task1: Sensor Interrupts
+hardware_interface.uart2_driver > core_components.task2: PC Interrupts
+hardware_interface.interrupt_handlers > core_components.scheduler: IRQ Management
+hardware_interface.dma_controllers > queue_management.sensor_data_queue: Buffered Transfers
+
+core_components.task1 > queue_management.sensor_data_queue: Writes Data
+core_components.task2 > queue_management.host_pc_command_queue: Writes Commands
+core_components.task3 > application_layer.state_machine: Executes State Transitions
+
+application_layer.message_parser - application_layer.state_machine: Processes Messages
+application_layer.sensor_control_logic - core_components.task3: Executes Control Logic
+
