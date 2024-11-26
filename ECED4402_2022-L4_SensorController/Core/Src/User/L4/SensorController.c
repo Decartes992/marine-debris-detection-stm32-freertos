@@ -34,11 +34,127 @@ static void ResetMessageStruct(struct CommMessage* currentRxMessage){
 /******************************************************************************
 This task is created from the main.
 ******************************************************************************/
-void SensorControllerTask(void *params)
-{
-	do {
-		vTaskDelay(1000 / portTICK_RATE_MS);
-	} while(1);
+void SensorControllerTask(void *params) {
+
+    ControllerState_t current_state = INIT_STATE;  // Initialize the state to INIT_STATE
+    SensorStatus_t sensor_status = {false, false, NULL};  // Initialize sensor status
+    enum HostPCCommands pc_command;  // Variable to store commands from Host PC
+    struct CommMessage sensor_msg;  // Variable to store messages from sensors
+    
+    // Create acknowledgment timer with 1 second timeout, no auto-reload, and no callback function
+    sensor_status.ack_timer = xTimerCreate(
+        "AckTimer",
+        pdMS_TO_TICKS(1000),  // 1 second timeout
+        pdFALSE,  // Don't auto-reload
+        NULL,
+        NULL  // Timer callback function can be added if needed
+    );
+
+    while(1) {
+        switch(current_state) {
+
+			case INIT_STATE:
+				// Wait for START command from Host PC
+				if (xQueueReceive(Queue_HostPC_Data, &pc_command, pdMS_TO_TICKS(100)) == pdPASS) {
+					if (pc_command == PC_Command_START) {
+						print_str("START command received\r\n");
+						// Reset sensor status flags
+						sensor_status.acoustic_enabled = false;
+						sensor_status.depth_enabled = false;
+						current_state = START_SENSORS_STATE;  // Transition to START_SENSORS_STATE
+					}
+				}
+				break;
+                
+			case START_SENSORS_STATE:
+				if (!sensor_status.acoustic_enabled || !sensor_status.depth_enabled) {
+					// Send enable commands to sensors if they are not enabled
+					if (!sensor_status.acoustic_enabled) {
+						send_sensorEnable_message(Acoustic, 5000);  // 5 second period
+					}
+					if (!sensor_status.depth_enabled) {
+						send_sensorEnable_message(Depth, 2000);    // 2 second period
+					}
+					
+					// Start acknowledgment timer
+					xTimerStart(sensor_status.ack_timer, portMAX_DELAY);
+					
+					// Check sensor responses
+					if (xQueueReceive(Queue_Sensor_Data, &sensor_msg, pdMS_TO_TICKS(100)) == pdPASS) {
+						if (sensor_msg.IsMessageReady && sensor_msg.IsCheckSumValid) {
+							if (sensor_msg.messageId == 1) {  // Acknowledgment message
+								if (sensor_msg.SensorID == Acoustic) {
+									sensor_status.acoustic_enabled = true;
+								} else if (sensor_msg.SensorID == Depth) {
+									sensor_status.depth_enabled = true;
+								}
+							}
+						}
+					}
+
+					// Both sensors enabled -> move to PARSE_SENSOR_DATA_STATE
+					if (sensor_status.acoustic_enabled && sensor_status.depth_enabled) {
+						current_state = PARSE_SENSOR_DATA_STATE;
+						print_str("All sensors enabled\r\n");
+					}
+				}
+				break;
+                
+			case PARSE_SENSOR_DATA_STATE:
+				// Check for RESET command from Host PC
+				if (xQueueReceive(Queue_HostPC_Data, &pc_command, 0) == pdPASS) {
+					if (pc_command == PC_Command_RESET) {
+						print_str("RESET command received\r\n");
+						current_state = DISABLE_SENSORS_STATE;  // Transition to DISABLE_SENSORS_STATE
+						break;
+					}
+				}
+
+				// Process sensor data
+				if (xQueueReceive(Queue_Sensor_Data, &sensor_msg, pdMS_TO_TICKS(100)) == pdPASS) {
+					if (sensor_msg.IsMessageReady && sensor_msg.IsCheckSumValid) {
+						if (sensor_msg.messageId == 3) {  // Data message
+							// Forward sensor data to Host PC
+							switch(sensor_msg.SensorID) {
+								case Acoustic:
+									print_str("Acoustic data: ");
+									// Convert data to string and print
+									char data_str[50];
+									sprintf(data_str, "%d\r\n", sensor_msg.params);
+									print_str(data_str);
+									break;
+									
+								case Depth:
+									print_str("Depth data: ");
+									sprintf(data_str, "%d\r\n", sensor_msg.params);
+									print_str(data_str);
+									break;
+							}
+						}
+					}
+				}
+				break;
+
+			case DISABLE_SENSORS_STATE:
+				// Send reset command to sensor platform
+				send_sensorReset_message();
+				
+				// Reset sensor status
+				sensor_status.acoustic_enabled = false;
+				sensor_status.depth_enabled = false;
+				
+				// Stop acknowledgment timer if running
+				xTimerStop(sensor_status.ack_timer, portMAX_DELAY);
+				
+				print_str("Sensors disabled\r\n");
+				
+				// Return to initial state
+				current_state = INIT_STATE;
+				break;
+        }
+        
+        vTaskDelay(pdMS_TO_TICKS(10)); // Prevent task starvation
+    }
 }
 
 
