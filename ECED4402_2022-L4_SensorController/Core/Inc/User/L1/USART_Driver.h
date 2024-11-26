@@ -22,7 +22,4 @@ void request_hostPC_read(void);
 
 void printStr_extern(char * str);
 
-#define MAX_RX_BUFFER_LENGTH   40
-extern uint8_t rx_buffer_extern[MAX_RX_BUFFER_LENGTH];
-
 #endif /* INC_USER_L1_USART_DRIVER_H_ */

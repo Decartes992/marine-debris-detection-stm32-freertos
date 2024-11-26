@@ -20,7 +20,6 @@ This is a software callback function.
 ******************************************************************************/
 void RunDepthSensor(TimerHandle_t xTimer)
 {
-	print_str("Making data\r\n");
 	static uint16_t depth = 10;
 	static uint8_t down = true;
 	if(down)

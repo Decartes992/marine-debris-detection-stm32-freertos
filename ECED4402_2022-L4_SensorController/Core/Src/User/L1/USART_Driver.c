@@ -17,7 +17,7 @@
 #include "queue.h"
 #include "semphr.h"
 
-
+#define MAX_RX_BUFFER_LENGTH   40
 
 uint8_t rx_buffer_extern[MAX_RX_BUFFER_LENGTH];
 uint8_t rx_buffer_hostPC[MAX_RX_BUFFER_LENGTH];
@@ -35,7 +35,6 @@ This triggers a read and the buffer will be filled asynchronously.
 ******************************************************************************/
 void request_sensor_read(void)
 {
-
 	HAL_UART_Receive_IT (&huart6, rx_buffer_extern, 1);
 }
 

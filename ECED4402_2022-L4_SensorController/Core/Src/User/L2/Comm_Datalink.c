@@ -63,8 +63,6 @@ void parse_sensor_message(struct CommMessage* currentRxMessage)
 	static uint8_t checksum_val;
 	static const struct CommMessage EmptyMessage = {0};
 
-	if (uxQueueMessagesWaiting(Queue_extern_UART) == 0) { return;}
-
 	while(xQueueReceive(Queue_extern_UART, &CurrentChar, portMAX_DELAY) == pdPASS && currentRxMessage->IsMessageReady == false)  // as long as there are characters in the queue.
 	{
 		if (CurrentChar == '$'){ //Reset State Machine
@@ -158,7 +156,6 @@ void parse_sensor_message(struct CommMessage* currentRxMessage)
 				}
 					break;
 			}
-		if (uxQueueMessagesWaiting(Queue_extern_UART) == 0) { break;}
 		}
 }
 
@@ -175,14 +172,10 @@ enum HostPCCommands parse_hostPC_message(){
 		if(CurrentChar == '\n' || CurrentChar == '\r'|| HostPCMessage_IDX >=6){
 			HostPCMessage[HostPCMessage_IDX++] = '\0';
 			HostPCMessage_IDX = 0;
-			if(strcmp(HostPCMessage, "START") == 0){
-				print_str("Start sent \n\r");
+			if(strcmp(HostPCMessage, "START") == 0)
 				return PC_Command_START;
-			}
-			else if(strcmp(HostPCMessage, "RESET") == 0){
-				print_str("Reset sent \n\r");
+			else if(strcmp(HostPCMessage, "RESET") == 0)
 				return PC_Command_RESET;
-			}
 		}else{
 			HostPCMessage[HostPCMessage_IDX++] = CurrentChar;
 		}

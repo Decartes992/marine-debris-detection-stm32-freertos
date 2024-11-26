@@ -25,7 +25,9 @@
 #define SENSORPLATFORM_MODE 0
 #define SENSORCONTROLLER_MODE 1
 
-#define CODE_MODE SENSORCONTROLLER_MODE
+//User must state the mode this code will run in. SENSORPLATFORM_MODE or SENSORCONTROLLER_MODE
+#define CODE_MODE SENSORPLATFORM_MODE
+//#define CODE_MODE SENSORCONTROLLER_MODE
 
 void main_user(){
 	util_init();
@@ -37,15 +39,12 @@ void main_user(){
 #endif
 
 #if CODE_MODE == SENSORCONTROLLER_MODE
-	print_str("controller");
 	xTaskCreate(HostPC_RX_Task,"HostPC_RX_Task", configMINIMAL_STACK_SIZE + 100, NULL, tskIDLE_PRIORITY + 2, NULL);
 
 	xTaskCreate(SensorPlatform_RX_Task,"SensorPlatform_RX_Task", configMINIMAL_STACK_SIZE + 100, NULL, tskIDLE_PRIORITY + 2, NULL);
 
 	xTaskCreate(SensorControllerTask,"Sensor_Controller_Task", configMINIMAL_STACK_SIZE + 100, NULL, tskIDLE_PRIORITY + 2, NULL);
 #elif CODE_MODE == SENSORPLATFORM_MODE
-	initialize_hostPC_datalink();
-	print_str("platform");
 	xTaskCreate(SensorPlatformTask,"Sensor_Platform_Task", configMINIMAL_STACK_SIZE + 100, NULL, tskIDLE_PRIORITY + 2, NULL);
 #endif
 	vTaskStartScheduler();
