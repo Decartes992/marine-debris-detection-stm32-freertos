@@ -16,9 +16,28 @@
 #include "FreeRTOS.h"
 #include "semphr.h"
 
-enum SensorId_t {None, Controller, Acoustic, Depth};
-enum AckTypes{RemoteSensingPlatformReset, AcousticSensorEnable, DepthSensorEnable};
-enum HostPCCommands{PC_Command_NONE,PC_Command_START,PC_Command_RESET};
+enum SensorId_t {
+    None,
+    Controller,
+    Acoustic,    // Existing
+    Pressure,    // Added for pressure sensor
+    FlowRate,    // Added for flow rate sensor
+    Corrosion    // Added for corrosion sensor
+};
+
+enum AckTypes {
+    RemoteSensingPlatformReset,
+    AcousticSensorEnable,     // Existing
+    PressureSensorEnable,     // Added for pressure sensor
+    FlowRateSensorEnable,     // Added for flow rate sensor
+    CorrosionSensorEnable     // Added for corrosion sensor
+};
+
+enum HostPCCommands {
+	PC_Command_NONE,
+	PC_Command_START,
+	PC_Command_RESET
+};
 
 struct CommMessage
 {

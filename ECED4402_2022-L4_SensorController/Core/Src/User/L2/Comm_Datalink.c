@@ -91,18 +91,23 @@ void parse_sensor_message(struct CommMessage* currentRxMessage)
 					sensorId[sensorIdIdx++] = CurrentChar;
 				}
 				if(sensorIdIdx == 5){
-					//Add NULL Terminator
-					sensorId[sensorIdIdx] = '\0';
-					if(strcmp(sensorId, "CNTRL") == 0)//Sensor ID: Controller
-						currentRxMessage->SensorID = Controller;
-					else if(strcmp(sensorId, "ACSTC") == 0)//Sensor ID: Acoustic
-						currentRxMessage->SensorID = Acoustic;
-					else if(strcmp(sensorId, "DEPTH") == 0)//Sensor ID: Depth
-						currentRxMessage->SensorID = Depth;
-					else{//Sensor ID: None
-						currentRxMessage->SensorID = None;
-						currentState = Waiting_S;
-					}
+				    // Add NULL Terminator
+				    sensorId[sensorIdIdx] = '\0';
+
+				    if(strcmp(sensorId, "CNTRL") == 0) // Sensor ID: Controller
+				        currentRxMessage->SensorID = Controller;
+				    else if(strcmp(sensorId, "ACSTC") == 0) // Sensor ID: Acoustic
+				        currentRxMessage->SensorID = Acoustic;
+				    else if(strcmp(sensorId, "PRESS") == 0) // Sensor ID: Pressure
+				        currentRxMessage->SensorID = Pressure;
+				    else if(strcmp(sensorId, "FLRAT") == 0) // Sensor ID: Flow Rate
+				        currentRxMessage->SensorID = FlowRate;
+				    else if(strcmp(sensorId, "CORRN") == 0) // Sensor ID: Corrosion
+				        currentRxMessage->SensorID = Corrosion;
+				    else { // Sensor ID: None
+				        currentRxMessage->SensorID = None;
+				        currentState = Waiting_S;
+				    }
 				}
 				break;
 
@@ -186,36 +191,51 @@ enum HostPCCommands parse_hostPC_message(){
 
 
 void send_sensorData_message(enum SensorId_t sensorType, uint16_t data){
-	char tx_sensor_buffer[50];
+    char tx_sensor_buffer[50];
 
-	switch(sensorType){
-	case Acoustic:
-		sprintf(tx_sensor_buffer, "$ACSTC,03,%08u,*,00\n", data);
-		break;
-	case Depth:
-		sprintf(tx_sensor_buffer, "$DEPTH,03,%08u,*,00\n", data);
-		break;
-	default:
-		break;
-	}
-	sendStringSensor(tx_sensor_buffer);
+    switch(sensorType){
+    case Acoustic:
+        sprintf(tx_sensor_buffer, "$ACSTC,03,%08u,*,00\n", data);
+        break;
+    case Pressure:
+        sprintf(tx_sensor_buffer, "$PRESS,03,%08u,*,00\n", data);
+        break;
+    case FlowRate:
+        sprintf(tx_sensor_buffer, "$FLRAT,03,%08u,*,00\n", data);
+        break;
+    case Corrosion:
+        sprintf(tx_sensor_buffer, "$CORRN,03,%08u,*,00\n", data);
+        break;
+    default:
+        // Handle unknown sensor type or add a default case if needed
+        break;
+    }
+    sendStringSensor(tx_sensor_buffer);
 }
 
 void send_sensorEnable_message(enum SensorId_t sensorType, uint16_t TimePeriod_ms){
-	char tx_sensor_buffer[50];
+    char tx_sensor_buffer[50];
 
-	switch(sensorType){
-	case Acoustic:
-		sprintf(tx_sensor_buffer, "$ACSTC,00,%08u,*,00\n", TimePeriod_ms);
-		break;
-	case Depth:
-		sprintf(tx_sensor_buffer, "$DEPTH,00,%08u,*,00\n", TimePeriod_ms);
-		break;
-	default:
-		break;
-	}
-	sendStringSensor(tx_sensor_buffer);
+    switch(sensorType){
+    case Acoustic:
+        sprintf(tx_sensor_buffer, "$ACSTC,00,%08u,*,00\n", TimePeriod_ms);
+        break;
+    case Pressure:
+        sprintf(tx_sensor_buffer, "$PRESS,00,%08u,*,00\n", TimePeriod_ms);
+        break;
+    case FlowRate:
+        sprintf(tx_sensor_buffer, "$FLRAT,00,%08u,*,00\n", TimePeriod_ms);
+        break;
+    case Corrosion:
+        sprintf(tx_sensor_buffer, "$CORRN,00,%08u,*,00\n", TimePeriod_ms);
+        break;
+    default:
+        // Optional: Handle unknown sensor type or add a default case if needed
+        break;
+    }
+    sendStringSensor(tx_sensor_buffer);
 }
+
 
 void send_sensorReset_message(void){
 	char tx_sensor_buffer[50];
@@ -226,19 +246,29 @@ void send_sensorReset_message(void){
 }
 
 void send_ack_message(enum AckTypes AckType){
-	char tx_sensor_buffer[50];
+    char tx_sensor_buffer[50];
 
-	switch(AckType){
-	case RemoteSensingPlatformReset:
-		sprintf(tx_sensor_buffer, "$CNTRL,01,,*,00\n");
-		break;
-	case AcousticSensorEnable:
-		sprintf(tx_sensor_buffer, "$ACSTC,01,,*,00\n");
-		break;
-	case DepthSensorEnable:
-		sprintf(tx_sensor_buffer, "$DEPTH,01,,*,00\n");
-		break;
-	}
+    switch(AckType){
+    case RemoteSensingPlatformReset:
+        sprintf(tx_sensor_buffer, "$CNTRL,01,,*,00\n");
+        break;
+    case AcousticSensorEnable:
+        sprintf(tx_sensor_buffer, "$ACSTC,01,,*,00\n");
+        break;
+    case PressureSensorEnable:
+        sprintf(tx_sensor_buffer, "$PRESS,01,,*,00\n");
+        break;
+    case FlowRateSensorEnable:
+        sprintf(tx_sensor_buffer, "$FLRAT,01,,*,00\n");
+        break;
+    case CorrosionSensorEnable:
+        sprintf(tx_sensor_buffer, "$CORRN,01,,*,00\n");
+        break;
+    default:
+        // Optional: Handle unknown sensor type or add a default case if needed
+        break;
+    }
 
-	sendStringSensor(tx_sensor_buffer);
+    sendStringSensor(tx_sensor_buffer);
 }
+

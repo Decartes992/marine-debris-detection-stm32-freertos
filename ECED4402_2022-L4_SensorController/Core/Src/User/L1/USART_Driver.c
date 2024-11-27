@@ -17,7 +17,7 @@
 #include "queue.h"
 #include "semphr.h"
 
-#define MAX_RX_BUFFER_LENGTH   40
+#define MAX_RX_BUFFER_LENGTH   100
 
 uint8_t rx_buffer_extern[MAX_RX_BUFFER_LENGTH];
 uint8_t rx_buffer_hostPC[MAX_RX_BUFFER_LENGTH];
@@ -57,7 +57,7 @@ void configure_usart_extern(void)
 	request_sensor_read();
 
 	// a queue will be filled by the external UART
-	Queue_extern_UART = xQueueCreate(80, sizeof(uint8_t));
+	Queue_extern_UART = xQueueCreate(200, sizeof(uint8_t));
 
 	mutexHandle_printStr_extern = xSemaphoreCreateMutex();
 }
@@ -71,7 +71,7 @@ void configure_usart_hostPC(void)
 	request_hostPC_read();
 
 	// a queue will be filled by the Host PC UART
-	Queue_hostPC_UART = xQueueCreate(80, sizeof(uint8_t));
+	Queue_hostPC_UART = xQueueCreate(200, sizeof(uint8_t));
 }
 
 

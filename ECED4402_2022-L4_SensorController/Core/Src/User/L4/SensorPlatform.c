@@ -5,11 +5,15 @@
  *      Author: Andre Hendricks / Dr. JF Bousquet
  */
 #include <stdio.h>
+#include <User/L3/InfraredSensor.h>
+#include <User/L3/UltrasonicSensor.h>
 
 #include "User/L2/Comm_Datalink.h"
+
 #include "User/L3/AcousticSensor.h"
-#include "User/L3/DepthSensor.h"
+#include "User/L3/CorrosionSensor.h"
 #include "User/L4/SensorPlatform.h"
+
 #include "User/util.h"
 
 //Required FreeRTOS header files
@@ -30,24 +34,14 @@ It is also responsible for starting the timers for each sensor
 ******************************************************************************/
 void SensorPlatformTask(void *params)
 {
-	const TickType_t TimerDefaultPeriod = 1000;
-	TimerHandle_t TimerID_AcousticSensor,TimerID_DepthSensor;
+	const TickType_t TimerDefaultPeriod = 10000;
+	TimerHandle_t TimerID_AcousticSensor, TimerID_UltrasonicSensor, TimerID_FlowRateSensor, TimerID_CorrosionSensor, TimerID_InfraredSensor;
 
-	TimerID_DepthSensor = xTimerCreate(
-		"Depth Sensor Task",
-		TimerDefaultPeriod,		// Period: Needed to be changed based on parameter
-		pdTRUE,		// Autoreload: Continue running till deleted or stopped
-		(void*)0,
-		RunDepthSensor
-		);
-
-	TimerID_AcousticSensor = xTimerCreate(
-		"Acoustic Sensor Task",
-		TimerDefaultPeriod,		// Period: Needed to be changed based on parameter
-		pdTRUE,		// Autoreload: Continue running till deleted or stopped
-		(void*)1,
-		RunAcousticSensor
-		);
+	TimerID_AcousticSensor = xTimerCreate("Acoustic Sensor Task", TimerDefaultPeriod, pdTRUE, (void*)0, RunAcousticSensor);
+	TimerID_UltrasonicSensor = xTimerCreate("Ultrasonic Sensor Task", TimerDefaultPeriod, pdTRUE, (void*)1, RunUltrasonicSensor);
+	TimerID_FlowRateSensor = xTimerCreate("Flow Rate Sensor Task", TimerDefaultPeriod, pdTRUE, (void*)2, RunFlowRateSensor);
+	//TimerID_CorrosionSensor = xTimerCreate("Corrosion Sensor Task", TimerDefaultPeriod, pdTRUE, (void*)3, RunCorrosionSensor);
+	TimerID_InfraredSensor = xTimerCreate("Infrared Sensor Task", TimerDefaultPeriod, pdTRUE, (void*)4, RunIRSensor);
 
 	request_sensor_read();  // requests a usart read (through the callback)
 
@@ -63,8 +57,10 @@ void SensorPlatformTask(void *params)
 				case Controller:
 					switch(currentRxMessage.messageId){
 						case 0:
-							xTimerStop(TimerID_DepthSensor, portMAX_DELAY);
-							xTimerStop(TimerID_AcousticSensor, portMAX_DELAY);
+							xTimerStop(TimerID_AcousticSensor,  portMAX_DELAY);
+							xTimerStop(TimerID_UltrasonicSensor,  portMAX_DELAY);
+							xTimerStop(TimerID_FlowRateSensor,  portMAX_DELAY);
+							//xTimerStop(TimerID_CorrosionSensor, portMAX_DELAY);
 							send_ack_message(RemoteSensingPlatformReset);
 							break;
 						case 1: //Do Nothing
@@ -86,19 +82,58 @@ void SensorPlatformTask(void *params)
 							break;
 					}
 					break;
-				case Depth:
-					switch(currentRxMessage.messageId){
-						case 0:
-							xTimerChangePeriod(TimerID_DepthSensor, currentRxMessage.params, portMAX_DELAY);
-							xTimerStart(TimerID_DepthSensor, portMAX_DELAY);
-							send_ack_message(DepthSensorEnable);
-							break;
-						case 1: //Do Nothing
-							break;
-						case 3: //Do Nothing
-							break;
-					}
-					break;
+					case Ultrasonic:
+						switch(currentRxMessage.messageId){
+							case 0:
+								xTimerChangePeriod(TimerID_UltrasonicSensor, currentRxMessage.params, portMAX_DELAY);
+								xTimerStart(TimerID_UltrasonicSensor, portMAX_DELAY);
+								send_ack_message(UltrasonicSensorEnable);
+								break;
+							case 1: //Do Nothing
+								break;
+							case 3: //Do Nothing
+								break;
+						}
+						break;
+					case FlowRate:
+						switch(currentRxMessage.messageId){
+							case 0:
+								xTimerChangePeriod(TimerID_FlowRateSensor, currentRxMessage.params, portMAX_DELAY);
+								xTimerStart(TimerID_FlowRateSensor, portMAX_DELAY);
+								send_ack_message(FlowRateSensorEnable);
+								break;
+							case 1: //Do Nothing
+								break;
+							case 3: //Do Nothing
+								break;
+						}
+						break;
+					/*case Corrosion:
+						switch(currentRxMessage.messageId){
+							case 0:
+								xTimerChangePeriod(TimerID_CorrosionSensor, currentRxMessage.params, portMAX_DELAY);
+								xTimerStart(TimerID_CorrosionSensor, portMAX_DELAY);
+								send_ack_message(CorrosionSensorEnable);
+								break;
+							case 1: //Do Nothing
+								break;
+							case 3: //Do Nothing
+								break;
+						}
+						break;*/
+					case Infrared:
+						switch(currentRxMessage.messageId){
+							case 0:
+								xTimerChangePeriod(TimerID_InfraredSensor, currentRxMessage.params, portMAX_DELAY);
+								xTimerStart(TimerID_InfraredSensor, portMAX_DELAY);
+								send_ack_message(InfraredSensorEnable);
+								break;
+							case 1: //Do Nothing
+								break;
+							case 3: //Do Nothing
+								break;
+						}
+						break;
 					default://Should not get here
 						break;
 			}
