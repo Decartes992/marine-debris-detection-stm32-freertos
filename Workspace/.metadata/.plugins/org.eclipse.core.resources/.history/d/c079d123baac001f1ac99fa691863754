@@ -1,0 +1,89 @@
+/*
+ * remoteSensingPlatform.c
+ *
+ *  Created on: Oct. 21, 2022
+ *      Author: Andre Hendricks / Dr. JF Bousquet
+ */
+
+#include <stdio.h>
+#include <User/L3/InfraredSensor.h>
+#include <User/L3/UltrasonicSensor.h>
+#include "User/L2/Comm_Datalink.h"
+#include "User/L4/SensorPlatform.h"
+#include "User/util.h"
+#include "FreeRTOS.h"
+#include "Timers.h"
+#include "semphr.h"
+
+// Resets the communication message structure
+static void ResetMessageStruct(struct CommMessage* currentRxMessage) {
+    static const struct CommMessage EmptyMessage = {0};
+    *currentRxMessage = EmptyMessage;
+}
+
+/******************************************************************************
+This task is responsible for managing messages from the datalink and
+starting/stopping the timers for Ultrasonic and Infrared sensors.
+******************************************************************************/
+void SensorPlatformTask(void *params) {
+    const TickType_t TimerDefaultPeriod = 10000; // Default period for timers in ticks
+    TimerHandle_t TimerID_UltrasonicSensor, TimerID_InfraredSensor;
+
+    // Create timers for Ultrasonic and Infrared sensors
+    TimerID_UltrasonicSensor = xTimerCreate(
+        "Ultrasonic Sensor Timer", 
+        TimerDefaultPeriod, 
+        pdTRUE, 
+        (void *)1, 
+        RunUltrasonicSensor
+    );
+
+    TimerID_InfraredSensor = xTimerCreate(
+        "Infrared Sensor Timer", 
+        TimerDefaultPeriod, 
+        pdTRUE, 
+        (void *)2,
+        RunIRSensor
+    );
+
+    request_sensor_read(); // Requests USART read via the callback
+
+    struct CommMessage currentRxMessage = {0}; // Message structure
+
+    do {
+        parse_sensor_message(&currentRxMessage); // Parse the received message
+
+        if (currentRxMessage.IsMessageReady && currentRxMessage.IsCheckSumValid) {
+            switch (currentRxMessage.SensorID) {
+                case Ultrasonic: // Handle Ultrasonic sensor commands
+                    if (currentRxMessage.messageId == 0) { // Enable sensor command
+                        xTimerChangePeriod(TimerID_UltrasonicSensor, currentRxMessage.params, portMAX_DELAY);
+                        xTimerStart(TimerID_UltrasonicSensor, portMAX_DELAY);
+                        send_sensorEnable_message(Ultrasonic, currentRxMessage.params);
+                    }
+                    break;
+
+                case Infrared: // Handle Infrared sensor commands
+                    if (currentRxMessage.messageId == 0) { // Enable sensor command
+                        xTimerChangePeriod(TimerID_InfraredSensor, currentRxMessage.params, portMAX_DELAY);
+                        xTimerStart(TimerID_InfraredSensor, portMAX_DELAY);
+                        send_sensorEnable_message(Infrared, currentRxMessage.params);
+                    }
+                    break;
+
+                case Controller: // Handle reset command
+                    if (currentRxMessage.messageId == 0) { // Reset command
+                        xTimerStop(TimerID_UltrasonicSensor, portMAX_DELAY);
+                        xTimerStop(TimerID_InfraredSensor, portMAX_DELAY);
+                        send_sensorReset_message(); // Send reset acknowledgment
+                    }
+                    break;
+
+                default:
+                    break; // Ignore unsupported sensor IDs
+            }
+
+            ResetMessageStruct(&currentRxMessage); // Reset message structure for next message
+        }
+    } while (1); // Infinite loop
+}

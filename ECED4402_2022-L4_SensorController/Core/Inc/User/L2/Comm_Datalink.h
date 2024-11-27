@@ -17,20 +17,16 @@
 #include "semphr.h"
 
 enum SensorId_t {
-    None,
-    Controller,
-    Acoustic,    // Existing
-    Pressure,    // Added for pressure sensor
-    FlowRate,    // Added for flow rate sensor
-    Corrosion    // Added for corrosion sensor
+    None = 0,
+    Controller = 1,
+    Ultrasonic = 2,  // Should match SensorID=2 in output
+    Infrared = 3     // Should match SensorID=3 in output
 };
 
 enum AckTypes {
     RemoteSensingPlatformReset,
-    AcousticSensorEnable,     // Existing
-    PressureSensorEnable,     // Added for pressure sensor
-    FlowRateSensorEnable,     // Added for flow rate sensor
-    CorrosionSensorEnable     // Added for corrosion sensor
+    UltrasonicSensorEnable,  // Added for ultrasonic sensor
+    InfraredSensorEnable,    // Added for infrared sensor
 };
 
 enum HostPCCommands {
@@ -62,6 +58,7 @@ void send_sensorReset_message(void);
 void initialize_sensor_datalink(void);
 void initialize_hostPC_datalink(void);
 void parse_sensor_message(struct CommMessage* currentRxMessage);
+void send_ack_message(enum AckTypes AckType);
 
 enum HostPCCommands parse_hostPC_message();
 

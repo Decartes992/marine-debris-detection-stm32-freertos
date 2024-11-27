@@ -89,12 +89,17 @@ void SensorControllerTask(void *params)
 				break;
 
 			case Start_Sensors:
-				sprintf(str, "Running Sensors\r\n");
-				print_str(str);
 
-				send_sensorEnable_message(Ultrasonic, 2000);
-				send_sensorEnable_message(Infrared, 4000);
+			    sprintf(str, "Sending enable messages...\r\n");
+			    print_str(str);
 
+			    send_sensorEnable_message(Ultrasonic, 5000);
+			    sprintf(str, "Sent Ultrasonic enable\r\n");
+			    print_str(str);
+
+			    send_sensorEnable_message(Infrared, 4000);
+			    sprintf(str, "Sent Infrared enable\r\n");
+			    print_str(str);
 				xTimerStart(xTimer, 0);
 
 				while(!Sensors_Expired) {
@@ -138,7 +143,7 @@ void SensorControllerTask(void *params)
 							switch(currentRxMessage.SensorID) {
 								case Ultrasonic:
 									UltrasonicStatus = analyzeUltrasonicValue(currentRxMessage.params);
-									sprintf(strUltrasonic, "Ultrasonic Sensor Data: %.2f cm - Status: %s\r\n", 
+									sprintf(strUltrasonic, "Ultrasonic Sensor Data: %d cm - Status: %s\r\n", 
 											currentRxMessage.params, UltrasonicStatus);
 									break;
 								case Infrared:

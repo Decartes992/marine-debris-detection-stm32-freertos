@@ -6,9 +6,10 @@
 #include "Timers.h"
 #include "stm32f4xx_hal.h"
 
-#define TRIG_PIN GPIO_PIN_5
-#define ECHO_PIN GPIO_PIN_6
+
+#define TRIG_PIN GPIO_PIN_1
 #define TRIG_PORT GPIOA
+#define ECHO_PIN GPIO_PIN_6
 #define ECHO_PORT GPIOA
 
 void UltrasonicSensor_Init(void) {

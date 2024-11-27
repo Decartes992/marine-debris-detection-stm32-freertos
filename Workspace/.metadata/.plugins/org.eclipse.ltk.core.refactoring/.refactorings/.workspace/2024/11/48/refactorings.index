@@ -5,3 +5,5 @@
 1732699277786	Delete resource 'ECED4402_2022/Core/Inc/User/L3/CorrosionSensor.h'
 1732699281340	Delete resource 'ECED4402_2022/Core/Inc/User/L3/Acoustic2Sensor.h'
 1732699302237	Delete resource 'ECED4402_2022/Core/Src/User/L3/FlowRateSensor.c'
+1732710660827	Delete resource 'ECED4402_2022/Core/Inc/User/L3/AcousticSensor.h'
+1732710665206	Delete resource 'ECED4402_2022/Core/Src/User/L3/AcousticSensor.c'

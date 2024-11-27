@@ -1,115 +1,44 @@
 #include <stdlib.h>
 #include "stm32f4xx_hal.h"
-#include "InfraredSensor.h"
+#include <User/L3/InfraredSensor.h>
 #include "FreeRTOS.h"
 #include "timers.h"
+#include "User/L2/Comm_Datalink.h"
 
+// Define Infrared Receiver GPIO Pin and Port
 #define IR_PIN GPIO_PIN_7
 #define IR_PORT GPIOA
-#define TIMx htim2  // Use Timer 2 (or configure as needed)
-#define TIM_PERIOD 0xFFFF  // Timer period (for 16-bit timer)
 
-extern TIM_HandleTypeDef TIMx;  // Ensure TIMx is defined in main.c or equivalent
+// Global variable to store the state of the infrared sensor
+volatile uint8_t irSignalState = 0;
 
-volatile uint32_t irPulseWidth = 0;
-volatile uint8_t irDataReady = 0;
-
-// Protocol decoding constants (example for NEC protocol)
-#define START_MIN 9000
-#define START_MAX 10000
-#define BIT_0_MIN 1000
-#define BIT_0_MAX 2000
-#define BIT_1_MIN 2000
-#define BIT_1_MAX 3000
-#define TOTAL_BITS 32
-
-// State machine variables
-static int irState = 0;
-static uint32_t irData = 0;
-static int irBitCount = 0;
-
-// Function prototypes
-void ProcessIRData(uint32_t data);
-
-// Function to initialize the infrared sensor
+// Function to initialize the infrared receiver as GPIO input
 void InfraredSensor_Init() {
-    // Configure GPIO pin PA7 as input for interrupt
     GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    // Configure PA7 as GPIO input
     GPIO_InitStruct.Pin = IR_PIN;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;  // Configure as alternate function for timer input
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;  // Set as input mode
+    GPIO_InitStruct.Pull = GPIO_NOPULL;      // No pull-up or pull-down
     HAL_GPIO_Init(IR_PORT, &GPIO_InitStruct);
-
-    // Configure Timer for Input Capture
-    HAL_TIM_IC_Start_IT(&TIMx, TIM_CHANNEL_1);  // Ensure TIM_CHANNEL_1 matches configuration
 }
 
-// Timer input capture interrupt callback
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-    if (htim->Instance == TIMx.Instance && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
-        static uint32_t lastCapture = 0;
-        uint32_t currentCapture = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
-        irPulseWidth = (currentCapture - lastCapture + TIM_PERIOD) % TIM_PERIOD;  // Compute pulse width
-        lastCapture = currentCapture;
-        irDataReady = 1;  // Indicate new data is ready
-    }
+// Function to read the infrared receiver signal
+uint8_t InfraredSensor_ReadSignal() {
+    return HAL_GPIO_ReadPin(IR_PORT, IR_PIN);  // Read the GPIO pin state
 }
 
-// Function to read data from the infrared sensor
-int ReadInfraredSensor() {
-    if (irDataReady) {
-        irDataReady = 0;
-        return irPulseWidth;  // Return the measured pulse width
-    }
-    return -1;  // No data ready
-}
-
-// Function to decode the IR signal
-void DecodeIRSignal(uint32_t pulseWidth) {
-    switch (irState) {
-        case 0:  // Waiting for start signal
-            if (pulseWidth > START_MIN && pulseWidth < START_MAX) {
-                irState = 1;
-                irData = 0;
-                irBitCount = 0;
-            }
-            break;
-
-        case 1:  // Reading bits
-            if (pulseWidth > BIT_0_MIN && pulseWidth < BIT_0_MAX) {
-                irData <<= 1;  // Append 0
-                irBitCount++;
-            } else if (pulseWidth > BIT_1_MIN && pulseWidth < BIT_1_MAX) {
-                irData = (irData << 1) | 1;  // Append 1
-                irBitCount++;
-            } else {
-                irState = 0;  // Reset on invalid pulse
-            }
-
-            // Check if all bits are received
-            if (irBitCount == TOTAL_BITS) {
-                ProcessIRData(irData);  // Process the decoded data
-                irState = 0;  // Reset state
-            }
-            break;
-
-        default:
-            irState = 0;  // Reset on unexpected state
-            break;
-    }
-}
-
-// Function to process the decoded IR data
-void ProcessIRData(uint32_t data) {
-    // Add logic to handle the decoded data (e.g., store, log, or act on it)
-    printf("IR Data Received: 0x%08X\n", data);
-}
-
-// FreeRTOS callback function for periodic IR sensor handling
+// FreeRTOS task or periodic callback function for monitoring the sensor
 void RunIRSensor(TimerHandle_t xTimer) {
-    int irValue = ReadInfraredSensor();
-    if (irValue != -1) {
-        DecodeIRSignal(irValue);  // Decode the pulse width
-        send_sensorData_message(Infrared, (uint16_t)irValue);
+    // Read the signal state from the infrared sensor
+    irSignalState = InfraredSensor_ReadSignal();
+
+    // Process the signal state (e.g., send it over UART or handle it in logic)
+    if (irSignalState) {
+        // Signal detected (HIGH state)
+        send_sensorData_message(Infrared, 1);  // Send a HIGH state as data
+    } else {
+        // No signal detected (LOW state)
+        send_sensorData_message(Infrared, 0);  // Send a LOW state as data
     }
 }
