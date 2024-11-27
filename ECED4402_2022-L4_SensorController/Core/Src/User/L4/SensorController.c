@@ -14,8 +14,6 @@
 
 #include "User/L2/Comm_Datalink.h"
 
-#include "User/L3/AcousticSensor.h"
-#include "User/L3/CorrosionSensor.h"
 #include "User/L4/SensorPlatform.h"
 #include "User/L4/SensorController.h"
 
@@ -55,22 +53,14 @@ void SensorControllerTask(void *params)
 {
 	// All variable declarations at the start
 	struct CommMessage currentRxMessage = {0};
-	int Acoustic_enabled = 0, Ultrasonic_enabled = 0, FlowRate_enabled = 0;
-	int Corrosion_enabled = 0, Disabled = 0;
-	int Infrared_enabled = 0;
+	int Ultrasonic_enabled = 0, Infrared_enabled = 0;
 	int sensorDataCounter = 0;
 	enum states state;
 	enum HostPCCommands HostPCCommand;
 	char str[60];
-	char strAcoustic[100];
 	char strUltrasonic[100];
-	char strFlowRate[100];
-	char strCorrosion[100];
 	char strInfrared[100];
-	char *AcousticStatus;
 	char *UltrasonicStatus;
-	char *FlowRateStatus;
-	char *CorrosionStatus;
 	char *InfraredStatus;
 
 	// Initialize variables
@@ -102,9 +92,7 @@ void SensorControllerTask(void *params)
 				sprintf(str, "Running Sensors\r\n");
 				print_str(str);
 
-				send_sensorEnable_message(Acoustic, 1000);
 				send_sensorEnable_message(Ultrasonic, 2000);
-				send_sensorEnable_message(FlowRate, 3000);
 				send_sensorEnable_message(Infrared, 4000);
 
 				xTimerStart(xTimer, 0);
@@ -113,17 +101,8 @@ void SensorControllerTask(void *params)
 					if(xQueueReceive(Queue_Sensor_Data, &currentRxMessage, 0) == pdPASS) {
 						if(currentRxMessage.messageId == 1) {
 							switch(currentRxMessage.SensorID) {
-								case Acoustic:
-									Acoustic_enabled = 1;
-									break;
 								case Ultrasonic:
 									Ultrasonic_enabled = 1;
-									break;
-								case FlowRate:
-									FlowRate_enabled = 1;
-									break;
-								case Corrosion:
-									Corrosion_enabled = 1;
 									break;
 								case Infrared:
 									Infrared_enabled = 1;
@@ -137,9 +116,8 @@ void SensorControllerTask(void *params)
 				}
 
 				xTimerStop(xTimer, 0);
-				Corrosion_enabled = 1;
 
-				if(Acoustic_enabled && Ultrasonic_enabled && FlowRate_enabled && Corrosion_enabled && Infrared_enabled) {
+				if(Ultrasonic_enabled && Infrared_enabled) {
 					state = Parse_Sensor_Data;
 					Sensors_Expired = 0;
 				} else {
@@ -158,20 +136,10 @@ void SensorControllerTask(void *params)
 					if(xQueueReceive(Queue_Sensor_Data, &currentRxMessage, 0) == pdPASS) {
 						if(currentRxMessage.messageId == 3) {
 							switch(currentRxMessage.SensorID) {
-								case Acoustic:
-									AcousticStatus = analyzeAcousticValue(currentRxMessage.params);
-									sprintf(strAcoustic, "Acoustic Sensor Data: %d dB - Status: %s\r\n", 
-											currentRxMessage.params, AcousticStatus);
-									break;
 								case Ultrasonic:
 									UltrasonicStatus = analyzeUltrasonicValue(currentRxMessage.params);
 									sprintf(strUltrasonic, "Ultrasonic Sensor Data: %.2f cm - Status: %s\r\n", 
 											currentRxMessage.params, UltrasonicStatus);
-									break;
-								case FlowRate:
-									FlowRateStatus = analyzeFlowRateValue(currentRxMessage.params);
-									sprintf(strFlowRate, "Flow Rate Sensor Data: %d L/min - Status: %s\r\n", 
-											currentRxMessage.params, FlowRateStatus);
 									break;
 								case Infrared:
 									InfraredStatus = analyzeInfraredValue(currentRxMessage.params);
@@ -185,19 +153,10 @@ void SensorControllerTask(void *params)
 					}
 				}
 
-				switch (sensorDataCounter % 4) {
-					case 0:
-						print_str(strAcoustic);
-						break;
-					case 1:
-						print_str(strUltrasonic);
-						break;
-					case 2:
-						print_str(strFlowRate);
-						break;
-					case 3:
-						print_str(strInfrared);
-						break;
+				if(sensorDataCounter % 2 == 0) {
+					print_str(strUltrasonic);
+				} else {
+					print_str(strInfrared);
 				}
 
 				sensorDataCounter++;
@@ -272,47 +231,14 @@ void HostPC_RX_Task(){
 	}
 }
 
-// Analyze Acoustic data for oil pipeline monitoring
-char* analyzeAcousticValue(int acousticValue) {
-    if (acousticValue < 50) {
-        return "Normal Operation - No Leakage Detected";
-    } else if (acousticValue >= 50 && acousticValue <= 80) {
-        return "Caution - Possible Disturbance";
+// Analyze Ultrasonic data for oil pipeline monitoring
+char* analyzeUltrasonicValue(int ultrasonicValue) {
+    if (ultrasonicValue < 50) {
+        return "Normal Operation - No Obstruction Detected";
+    } else if (ultrasonicValue >= 50 && ultrasonicValue <= 80) {
+        return "Caution - Possible Obstruction";
     } else {
-        return "Alert - Potential Leakage or Structural Issue Detected";
-    }
-}
-
-// Analyze Pressure data for oil pipeline monitoring
-char* analyzePressureValue(int pressureValue) {
-    if (pressureValue < 100) {
-        return "Low Pressure - Possible Leakage Detected";
-    } else if (pressureValue > 200) {
-        return "High Pressure - Risk of Pipeline Rupture";
-    } else {
-        return "Normal Pressure - Pipeline Operating Safely";
-    }
-}
-
-// Analyze Flow Rate data for oil pipeline monitoring
-char* analyzeFlowRateValue(int flowRateValue) {
-    if (flowRateValue < 100) {
-        return "Low Flow - Possible Blockage or Leakage";
-    } else if (flowRateValue > 200) {
-        return "High Flow - Potential Overload or Equipment Malfunction";
-    } else {
-        return "Normal Flow - Pipeline Operating Within Expected Parameters";
-    }
-}
-
-// Analyze Corrosion data for oil pipeline monitoring
-char* analyzeCorrosionValue(int corrosionValue) {
-    if (corrosionValue < 30) {
-        return "Low Corrosion - Good Condition";
-    } else if (corrosionValue >= 30 && corrosionValue <= 60) {
-        return "Moderate Corrosion - Maintenance Recommended";
-    } else {
-        return "High Corrosion - Immediate Attention Required";
+        return "Alert - Obstruction Detected";
     }
 }
 

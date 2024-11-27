@@ -110,5 +110,6 @@ void RunIRSensor(TimerHandle_t xTimer) {
     int irValue = ReadInfraredSensor();
     if (irValue != -1) {
         DecodeIRSignal(irValue);  // Decode the pulse width
+        send_sensorData_message(Infrared, (uint16_t)irValue);
     }
 }

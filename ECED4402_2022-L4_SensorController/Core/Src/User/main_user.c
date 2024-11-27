@@ -17,6 +17,8 @@
 #include "User/L2/Comm_Datalink.h"
 #include "User/L4/SensorPlatform.h"
 #include "User/L4/SensorController.h"
+#include "User/L3/UltrasonicSensor.h"
+#include "User/L3/InfraredSensor.h"
 
 //Required FreeRTOS header files
 #include "FreeRTOS.h"
@@ -25,10 +27,6 @@
 #define SENSORPLATFORM_MODE 0
 #define SENSORCONTROLLER_MODE 1
 
-// for the board being powered (sensors)
-//#define CODE_MODE SENSORPLATFORM_MODE
-
-// for the board powering (controller)
 #define CODE_MODE SENSORPLATFORM_MODE
 
 void main_user(){
