@@ -704,3 +704,5 @@
 2024-11-27 07:58:48,364 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] This download action requires prior login. To proceed, please use the 'login' command with your my.st.com account email and password.
 2024-11-27 07:58:48,365 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] Run 'login <email> <password> <remember_me>' for example 'login john.smith@st.com mypassword y'.
 2024-11-27 07:58:48,369 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] If you do not have a my.st.com account, please visit https://st.com website to create one.
+2024-11-27 13:08:06,551 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2024-11-27 13:08:06,552 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
