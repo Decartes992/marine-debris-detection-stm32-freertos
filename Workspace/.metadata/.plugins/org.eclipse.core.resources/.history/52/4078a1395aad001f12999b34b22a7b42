@@ -1,0 +1,13 @@
+#ifndef ULTRASONICSENSOR_H_
+#define ULTRASONICSENSOR_H_
+
+#include "FreeRTOS.h"
+#include "timers.h"
+
+void UltrasonicSensor_Init(void);
+void UltrasonicSensor_SendPulse(void);
+uint32_t UltrasonicSensor_GetEchoDuration(void);
+uint16_t UltrasonicSensor_GetDistance(void);  // Changed from float to uint16_t
+void RunUltrasonicSensor(TimerHandle_t xTimer);
+
+#endif /* ULTRASONICSENSOR_H_ */

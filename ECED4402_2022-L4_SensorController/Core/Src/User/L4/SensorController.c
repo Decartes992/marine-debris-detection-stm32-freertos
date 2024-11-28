@@ -238,9 +238,9 @@ void HostPC_RX_Task(){
 
 // Analyze Ultrasonic data for oil pipeline monitoring
 char* analyzeUltrasonicValue(int ultrasonicValue) {
-    if (ultrasonicValue < 50) {
+    if (ultrasonicValue > 80) {
         return "Normal Operation - No Obstruction Detected";
-    } else if (ultrasonicValue >= 50 && ultrasonicValue <= 80) {
+    } else if (ultrasonicValue >= 10 && ultrasonicValue <= 80) {
         return "Caution - Possible Obstruction";
     } else {
         return "Alert - Obstruction Detected";
@@ -249,11 +249,9 @@ char* analyzeUltrasonicValue(int ultrasonicValue) {
 
 // Analyze Infrared data for oil pipeline monitoring
 char* analyzeInfraredValue(int infraredValue) {
-    if (infraredValue < 50) {
-        return "Normal Operation - No Obstruction Detected";
-    } else if (infraredValue >= 50 && infraredValue <= 80) {
-        return "Caution - Possible Obstruction";
-    } else {
-        return "Alert - Obstruction Detected";
+    if (infraredValue == 1) {
+        return "Organic material detected Detected";
+    } else if (infraredValue == 0) {
+        return "No Significant heat signature detected";
     }
 }

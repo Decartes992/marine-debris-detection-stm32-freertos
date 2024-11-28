@@ -651,3 +651,303 @@ Finished building: default.size.stdout
  
 Finished building: ECED4402_2022.list
  
+16:39:41 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L3/InfraredSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/InfraredSensor.d" -MT"Core/Src/User/L3/InfraredSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/InfraredSensor.o"
+../Core/Src/User/L3/InfraredSensor.c: In function 'HAL_TIM_IC_CaptureCallback':
+../Core/Src/User/L3/InfraredSensor.c:60:31: error: 'htim' is a pointer; did you mean to use '->'?
+   60 |     if (htim->Instance == TIMx.Instance && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_1) {
+      |                               ^
+      |                               ->
+make: *** [Core/Src/User/L3/subdir.mk:22: Core/Src/User/L3/InfraredSensor.o] Error 1
+"make -j24 all" terminated with exit code 2. Build might be incomplete.
+16:41:20 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L3/InfraredSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/InfraredSensor.d" -MT"Core/Src/User/L3/InfraredSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/InfraredSensor.o"
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  32764	    104	  21240	  54108	   d35c	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 
+16:42:38 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-size  ECED4402_2022.elf 
+   text	   data	    bss	    dec	    hex	filename
+  32764	    104	  21240	  54108	   d35c	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+16:43:39 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  31000	    124	  21276	  52400	   ccb0	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 
+16:49:23 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L3/InfraredSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/InfraredSensor.d" -MT"Core/Src/User/L3/InfraredSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/InfraredSensor.o"
+arm-none-eabi-gcc "../Core/Src/User/L3/UltrasonicSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/UltrasonicSensor.d" -MT"Core/Src/User/L3/UltrasonicSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/UltrasonicSensor.o"
+arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
+../Core/Src/User/L3/UltrasonicSensor.c: In function 'UltrasonicSensor_Init':
+../Core/Src/User/L3/UltrasonicSensor.c:33:5: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   33 |     sprintf(str, "Ultrasonic Sensor initialized - Trigger:PA1, Echo:PA6\r\n");
+      |     ^~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:8:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+    7 | #include "User/util.h"
+  +++ |+#include <stdio.h>
+    8 | 
+../Core/Src/User/L3/UltrasonicSensor.c:33:5: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   33 |     sprintf(str, "Ultrasonic Sensor initialized - Trigger:PA1, Echo:PA6\r\n");
+      |     ^~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:33:5: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/User/L3/UltrasonicSensor.c: In function 'UltrasonicSensor_SendPulse':
+../Core/Src/User/L3/UltrasonicSensor.c:40:5: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   40 |     sprintf(str, "Sending ultrasonic pulse [%lu]\r\n", readingCount);
+      |     ^~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:40:5: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/User/L3/UltrasonicSensor.c: In function 'UltrasonicSensor_GetEchoDuration':
+../Core/Src/User/L3/UltrasonicSensor.c:56:13: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   56 |             sprintf(str, "Echo timeout while waiting for start [%lu]\r\n", readingCount);
+      |             ^~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:56:13: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/User/L3/UltrasonicSensor.c:65:13: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   65 |             sprintf(str, "Echo timeout while waiting for end [%lu]\r\n", readingCount);
+      |             ^~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:65:13: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/User/L3/UltrasonicSensor.c:72:5: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   72 |     sprintf(str, "Echo duration: %lu ms [%lu]\r\n", duration, readingCount);
+      |     ^~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:72:5: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/User/L3/UltrasonicSensor.c: At top level:
+../Core/Src/User/L3/UltrasonicSensor.c:78:10: error: conflicting types for 'UltrasonicSensor_GetDistance'; have 'uint16_t(void)' {aka 'short unsigned int(void)'}
+   78 | uint16_t UltrasonicSensor_GetDistance(void) {
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from ../Core/Src/User/L3/UltrasonicSensor.c:2:
+../Core/Inc/User/L3/UltrasonicSensor.h:10:7: note: previous declaration of 'UltrasonicSensor_GetDistance' with type 'float(void)'
+   10 | float UltrasonicSensor_GetDistance(void);
+      |       ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c: In function 'UltrasonicSensor_GetDistance':
+../Core/Src/User/L3/UltrasonicSensor.c:88:5: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   88 |     sprintf(str, "Calculated distance: %u cm [%lu]\r\n", distance, readingCount);
+      |     ^~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:88:5: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/User/L3/UltrasonicSensor.c: In function 'RunUltrasonicSensor':
+../Core/Src/User/L3/UltrasonicSensor.c:96:5: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   96 |     sprintf(str, "Ultrasonic Timer Callback - Reading %lu\r\n", readingCount);
+      |     ^~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:96:5: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+make: *** [Core/Src/User/L3/subdir.mk:22: Core/Src/User/L3/UltrasonicSensor.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j24 all" terminated with exit code 2. Build might be incomplete.
+16:50:24 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L4/SensorController.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L4/SensorController.d" -MT"Core/Src/User/L4/SensorController.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L4/SensorController.o"
+arm-none-eabi-gcc "../Core/Src/User/L4/SensorPlatform.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L4/SensorPlatform.d" -MT"Core/Src/User/L4/SensorPlatform.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L4/SensorPlatform.o"
+arm-none-eabi-gcc "../Core/Src/User/L3/UltrasonicSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/UltrasonicSensor.d" -MT"Core/Src/User/L3/UltrasonicSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/UltrasonicSensor.o"
+arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  31576	    108	  21252	  52936	   cec8	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 
+16:51:14 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  31000	    124	  21276	  52400	   ccb0	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 
+17:38:57 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L3/InfraredSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/InfraredSensor.d" -MT"Core/Src/User/L3/InfraredSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/InfraredSensor.o"
+arm-none-eabi-gcc "../Core/Src/User/L3/UltrasonicSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/UltrasonicSensor.d" -MT"Core/Src/User/L3/UltrasonicSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/UltrasonicSensor.o"
+../Core/Src/User/L3/UltrasonicSensor.c: In function 'RunUltrasonicSensor':
+../Core/Src/User/L3/UltrasonicSensor.c:114:39: error: 'simulatedIRValue' undeclared (first use in this function)
+  114 |     send_sensorData_message(Infrared, simulatedIRValue);
+      |                                       ^~~~~~~~~~~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:114:39: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/User/L3/UltrasonicSensor.c:111:14: warning: unused variable 'simulatedDistance' [-Wunused-variable]
+  111 |     uint16_t simulatedDistance = (rand() % 100);  // Simulate distance in cm (0 to 99)
+      |              ^~~~~~~~~~~~~~~~~
+make: *** [Core/Src/User/L3/subdir.mk:22: Core/Src/User/L3/UltrasonicSensor.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j24 all" terminated with exit code 2. Build might be incomplete.
+17:39:41 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L3/InfraredSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/InfraredSensor.d" -MT"Core/Src/User/L3/InfraredSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/InfraredSensor.o"
+arm-none-eabi-gcc "../Core/Src/User/L3/UltrasonicSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/UltrasonicSensor.d" -MT"Core/Src/User/L3/UltrasonicSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/UltrasonicSensor.o"
+../Core/Src/User/L3/InfraredSensor.c: In function 'RunIRSensor':
+../Core/Src/User/L3/InfraredSensor.c:72:14: error: redeclaration of 'simulatedIRValue' with no linkage
+   72 |     uint16_t simulatedIRValue = (rand() % 2);  // Simulate binary IR sensor data (0 or 1)
+      |              ^~~~~~~~~~~~~~~~
+../Core/Src/User/L3/InfraredSensor.c:70:18: note: previous declaration of 'simulatedIRValue' with type 'uint16_t' {aka 'short unsigned int'}
+   70 |         uint16_t simulatedIRValue;
+      |                  ^~~~~~~~~~~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c: In function 'RunUltrasonicSensor':
+../Core/Src/User/L3/UltrasonicSensor.c:111:14: error: redeclaration of 'simulatedDistance' with no linkage
+  111 |     uint16_t simulatedDistance = (rand() % 100);  // Simulate distance in cm (0 to 99)
+      |              ^~~~~~~~~~~~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:109:18: note: previous declaration of 'simulatedDistance' with type 'uint16_t' {aka 'short unsigned int'}
+  109 |         uint16_t simulatedDistance;
+      |                  ^~~~~~~~~~~~~~~~~
+make: *** [Core/Src/User/L3/subdir.mk:22: Core/Src/User/L3/InfraredSensor.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/User/L3/UltrasonicSensor.c:114:39: error: 'simulatedIRValue' undeclared (first use in this function)
+  114 |     send_sensorData_message(Infrared, simulatedIRValue);
+      |                                       ^~~~~~~~~~~~~~~~
+../Core/Src/User/L3/UltrasonicSensor.c:114:39: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/User/L3/UltrasonicSensor.c:111:14: warning: unused variable 'simulatedDistance' [-Wunused-variable]
+  111 |     uint16_t simulatedDistance = (rand() % 100);  // Simulate distance in cm (0 to 99)
+      |              ^~~~~~~~~~~~~~~~~
+make: *** [Core/Src/User/L3/subdir.mk:22: Core/Src/User/L3/UltrasonicSensor.o] Error 1
+"make -j24 all" terminated with exit code 2. Build might be incomplete.
+17:40:37 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L3/InfraredSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/InfraredSensor.d" -MT"Core/Src/User/L3/InfraredSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/InfraredSensor.o"
+arm-none-eabi-gcc "../Core/Src/User/L3/UltrasonicSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/UltrasonicSensor.d" -MT"Core/Src/User/L3/UltrasonicSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/UltrasonicSensor.o"
+../Core/Src/User/L3/InfraredSensor.c: In function 'RunIRSensor':
+../Core/Src/User/L3/InfraredSensor.c:77:44: error: 'variance' undeclared (first use in this function)
+   77 |     uint16_t simulatedFlowRate = (rand() % variance) + mean;
+      |                                            ^~~~~~~~
+../Core/Src/User/L3/InfraredSensor.c:77:44: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/User/L3/InfraredSensor.c:77:56: error: 'mean' undeclared (first use in this function)
+   77 |     uint16_t simulatedFlowRate = (rand() % variance) + mean;
+      |                                                        ^~~~
+../Core/Src/User/L3/InfraredSensor.c:80:29: error: 'FlowRate' undeclared (first use in this function)
+   80 |     send_sensorData_message(FlowRate, simulatedFlowRate);
+      |                             ^~~~~~~~
+make: *** [Core/Src/User/L3/subdir.mk:22: Core/Src/User/L3/InfraredSensor.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j24 all" terminated with exit code 2. Build might be incomplete.
+17:40:55 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L3/InfraredSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/InfraredSensor.d" -MT"Core/Src/User/L3/InfraredSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/InfraredSensor.o"
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  31000	    124	  21276	  52400	   ccb0	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 
+17:41:34 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  33704	    116	  21244	  55064	   d718	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 
+17:51:35 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L4/SensorController.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L4/SensorController.d" -MT"Core/Src/User/L4/SensorController.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L4/SensorController.o"
+../Core/Src/User/L4/SensorController.c: In function 'analyzeInfraredValue':
+../Core/Src/User/L4/SensorController.c:257:1: warning: control reaches end of non-void function [-Wreturn-type]
+  257 | }
+      | ^
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  33704	    116	  21244	  55064	   d718	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 
+17:52:20 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  31076	    124	  21276	  52476	   ccfc	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 
+03:45:17 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L4/SensorController.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L4/SensorController.d" -MT"Core/Src/User/L4/SensorController.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L4/SensorController.o"
+arm-none-eabi-gcc "../Core/Src/User/L4/SensorPlatform.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L4/SensorPlatform.d" -MT"Core/Src/User/L4/SensorPlatform.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L4/SensorPlatform.o"
+arm-none-eabi-gcc "../Core/Src/User/L3/InfraredSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/InfraredSensor.d" -MT"Core/Src/User/L3/InfraredSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/InfraredSensor.o"
+arm-none-eabi-gcc "../Core/Src/User/L3/UltrasonicSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/UltrasonicSensor.d" -MT"Core/Src/User/L3/UltrasonicSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/UltrasonicSensor.o"
+arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
+../Core/Src/User/L4/SensorController.c: In function 'analyzeInfraredValue':
+../Core/Src/User/L4/SensorController.c:257:1: warning: control reaches end of non-void function [-Wreturn-type]
+  257 | }
+      | ^
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  31076	    124	  21276	  52476	   ccfc	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 
+03:46:05 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  31584	    108	  21260	  52952	   ced8	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 

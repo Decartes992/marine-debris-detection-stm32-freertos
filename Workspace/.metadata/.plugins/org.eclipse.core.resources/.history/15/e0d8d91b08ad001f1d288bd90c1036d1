@@ -1,0 +1,115 @@
+#include <stdlib.h>
+#include <stdio.h>   // Added this for sprintf
+#include <User/L3/UltrasonicSensor.h>
+#include "User/L2/Comm_Datalink.h"
+#include "FreeRTOS.h"
+#include "Timers.h"
+#include "stm32f4xx_hal.h"
+#include "User/util.h"
+
+// Rest of your code remains the same as in the previous post
+#define TRIG_PIN GPIO_PIN_1
+#define TRIG_PORT GPIOA
+#define ECHO_PIN GPIO_PIN_6
+#define ECHO_PORT GPIOA
+
+static uint32_t readingCount = 0;
+
+void UltrasonicSensor_Init(void) {
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+    char str[100];
+
+    // Configure TRIG_PIN as output
+    GPIO_InitStruct.Pin = TRIG_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(TRIG_PORT, &GPIO_InitStruct);
+
+    // Configure ECHO_PIN as input
+    GPIO_InitStruct.Pin = ECHO_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(ECHO_PORT, &GPIO_InitStruct);
+
+    sprintf(str, "Ultrasonic Sensor initialized - Trigger:PA1, Echo:PA6\r\n");
+    print_str(str);
+}
+
+void UltrasonicSensor_SendPulse(void) {
+    char str[100];
+
+    sprintf(str, "Sending ultrasonic pulse [%lu]\r\n", readingCount);
+    print_str(str);
+
+    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_RESET);
+    HAL_Delay(2);
+    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_SET);
+    HAL_Delay(10);
+    HAL_GPIO_WritePin(TRIG_PORT, TRIG_PIN, GPIO_PIN_RESET);
+}
+
+uint32_t UltrasonicSensor_GetEchoDuration(void) {
+    uint32_t startTick = HAL_GetTick();
+    char str[100];
+
+    while (HAL_GPIO_ReadPin(ECHO_PORT, ECHO_PIN) == GPIO_PIN_RESET) {
+        if ((HAL_GetTick() - startTick) > 100) {
+            sprintf(str, "Echo timeout while waiting for start [%lu]\r\n", readingCount);
+            print_str(str);
+            return 0;
+        }
+    }
+
+    startTick = HAL_GetTick();
+    while (HAL_GPIO_ReadPin(ECHO_PORT, ECHO_PIN) == GPIO_PIN_SET) {
+        if ((HAL_GetTick() - startTick) > 100) {
+            sprintf(str, "Echo timeout while waiting for end [%lu]\r\n", readingCount);
+            print_str(str);
+            return 0;
+        }
+    }
+
+    uint32_t duration = HAL_GetTick() - startTick;
+    sprintf(str, "Echo duration: %lu ms [%lu]\r\n", duration, readingCount);
+    print_str(str);
+
+    return duration;
+}
+
+uint16_t UltrasonicSensor_GetDistance(void) {
+    char str[100];
+    UltrasonicSensor_SendPulse();
+    uint32_t duration = UltrasonicSensor_GetEchoDuration();
+
+    // Convert to distance in cm using integer math
+    // distance = (duration * 343) / (2 * 1000) cm
+    // 343 m/s is speed of sound, divide by 2 for round trip
+    uint16_t distance = (uint16_t)((duration * 343) / 2000);
+
+    sprintf(str, "Calculated distance: %u cm [%lu]\r\n", distance, readingCount);
+    print_str(str);
+
+    return distance;
+}
+
+void RunUltrasonicSensor(TimerHandle_t xTimer) {
+    // char str[100];
+    // sprintf(str, "Ultrasonic Timer Callback - Reading %lu\r\n", readingCount);
+    // print_str(str);
+
+    // uint16_t distance = UltrasonicSensor_GetDistance();
+    // send_sensorData_message(Ultrasonic, distance);
+
+    // readingCount++;
+
+    // sprintf(str, "Sent ultrasonic data: %u cm (Reading %lu)\r\n",
+    //         distance, readingCount);
+    // print_str(str);
+
+    // Simulate ultrasonic sensor data
+    uint16_t simulatedDistance = (rand() % 100);  // Simulate distance in cm (0 to 99)
+    
+    // Send the simulated IR data
+    send_sensorData_message(Infrared, simulatedIRValue);
+}
