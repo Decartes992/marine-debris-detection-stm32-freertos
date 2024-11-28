@@ -951,3 +951,37 @@ Finished building: default.size.stdout
  
 Finished building: ECED4402_2022.list
  
+04:42:55 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/L4/SensorController.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L4/SensorController.d" -MT"Core/Src/User/L4/SensorController.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L4/SensorController.o"
+arm-none-eabi-gcc "../Core/Src/User/L4/SensorPlatform.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L4/SensorPlatform.d" -MT"Core/Src/User/L4/SensorPlatform.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L4/SensorPlatform.o"
+arm-none-eabi-gcc "../Core/Src/User/L3/InfraredSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/InfraredSensor.d" -MT"Core/Src/User/L3/InfraredSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/InfraredSensor.o"
+arm-none-eabi-gcc "../Core/Src/User/L3/UltrasonicSensor.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/L3/UltrasonicSensor.d" -MT"Core/Src/User/L3/UltrasonicSensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/L3/UltrasonicSensor.o"
+arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  33664	    104	  21360	  55128	   d758	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 
+04:44:41 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+make -j24 all 
+arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
+arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+C:/ST/STM32CubeIDE_1.16.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.200.202406191623/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: ECED4402_2022.elf has a LOAD segment with RWX permissions
+Finished building target: ECED4402_2022.elf
+ 
+arm-none-eabi-size  ECED4402_2022.elf 
+arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
+   text	   data	    bss	    dec	    hex	filename
+  31404	    124	  21284	  52812	   ce4c	ECED4402_2022.elf
+Finished building: default.size.stdout
+ 
+Finished building: ECED4402_2022.list
+ 

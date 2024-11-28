@@ -1,4 +1,4 @@
-03:46:05 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
+04:44:41 **** Incremental Build of configuration Debug for project ECED4402_2022 ****
 make -j24 all 
 arm-none-eabi-gcc "../Core/Src/User/main_user.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/User/main_user.d" -MT"Core/Src/User/main_user.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/User/main_user.o"
 arm-none-eabi-gcc -o "ECED4402_2022.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Decartes\Documents\GitHub\marine-debris-detection-stm32-freertos\ECED4402_2022-L4_SensorController\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="ECED4402_2022.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -8,11 +8,11 @@ Finished building target: ECED4402_2022.elf
 arm-none-eabi-size  ECED4402_2022.elf 
 arm-none-eabi-objdump -h -S ECED4402_2022.elf  > "ECED4402_2022.list"
    text	   data	    bss	    dec	    hex	filename
-  31584	    108	  21260	  52952	   ced8	ECED4402_2022.elf
+  31404	    124	  21284	  52812	   ce4c	ECED4402_2022.elf
 Finished building: default.size.stdout
  
 Finished building: ECED4402_2022.list
  
 
-03:46:06 Build Finished. 0 errors, 1 warnings. (took 764ms)
+04:44:42 Build Finished. 0 errors, 1 warnings. (took 824ms)
 

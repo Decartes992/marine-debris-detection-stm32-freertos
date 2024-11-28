@@ -249,9 +249,16 @@ char* analyzeUltrasonicValue(int ultrasonicValue) {
 
 // Analyze Infrared data for oil pipeline monitoring
 char* analyzeInfraredValue(int infraredValue) {
-    if (infraredValue == 1) {
-        return "Organic material detected Detected";
-    } else if (infraredValue == 0) {
-        return "No Significant heat signature detected";
+    switch (infraredValue) {
+        case PLASTIC_DEBRIS:
+            return "Plastic material detected";
+        case ORGANIC_DEBRIS:
+            return "Organic material detected";
+        case METAL_DEBRIS:
+            return "Metal debris detected";
+        case UNKNOWN_DEBRIS:
+            return "Unknown material detected";
+        default:
+            return "No significant heat signature detected";
     }
 }
