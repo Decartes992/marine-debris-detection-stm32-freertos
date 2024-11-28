@@ -48,7 +48,11 @@ void main_user(){
 
 	xTaskCreate(SensorControllerTask,"Sensor_Controller_Task", configMINIMAL_STACK_SIZE + 400, NULL, tskIDLE_PRIORITY + 2, NULL);
 #elif CODE_MODE == SENSORPLATFORM_MODE
+
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+
 	UltrasonicSensor_Init();
+
 	InfraredSensor_Init(); // Initialize the infrared sensor
 	xTaskCreate(SensorPlatformTask,"Sensor_Platform_Task", configMINIMAL_STACK_SIZE + 400, NULL, tskIDLE_PRIORITY + 2, NULL);
 #endif

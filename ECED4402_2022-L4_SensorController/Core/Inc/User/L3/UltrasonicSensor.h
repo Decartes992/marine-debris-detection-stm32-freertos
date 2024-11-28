@@ -1,13 +1,13 @@
-#ifndef INC_USER_L3_ULTRASONICSENSOR_H_
-#define INC_USER_L3_ULTRASONICSENSOR_H_
+#ifndef ULTRASONICSENSOR_H_
+#define ULTRASONICSENSOR_H_
 
+#include "stm32f4xx_hal.h"
 #include "FreeRTOS.h"
 #include "timers.h"
 
+// Function prototypes
 void UltrasonicSensor_Init(void);
-void UltrasonicSensor_SendPulse(void);
-uint32_t UltrasonicSensor_GetEchoDuration(void);
-float UltrasonicSensor_GetDistance(void);
-void RunUltrasonicSensor(TimerHandle_t xTimer); // Default 1000 ms
+uint16_t UltrasonicSensor_GetDistance(void);
+void RunUltrasonicSensor(TimerHandle_t xTimer);
 
-#endif /* INC_USER_L3_ULTRASONICSENSOR_H_ */
+#endif /* ULTRASONICSENSOR_H_ */
